@@ -1,0 +1,107 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Imposizione delle condizioni al contorno per il problema di
+% Poisson non omogeneo omogeneo.
+% INPUT: A matrice di stiffness
+%        b vettore termine noto
+%        femregion struttura contenente la matrice metrica
+% OUTPUT: A,b modificate secondo le condizioni al bordo
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+function [A,b,u_g,M]=C_bound_cond2D(A,b,M,femregion,Dati,bc)
+%% [A,b,u_g,M]=C_bound_cond2D(A,b,M,femregion,Dati)
+%==========================================================================
+% Assign Dirchlet boundary conditions
+%==========================================================================
+%    called in C_main2D.m
+%
+%    INPUT:
+%          A           : (sparse(ndof,ndof) real) stiffness matrix
+%          b           : (sparse(ndof,1) real) rhs vector
+%          femregion   : (struct)  see C_create_femregion.m
+%          Dati        : (struct)  see C_dati.m
+
+%
+%    OUTPUT:
+%          A           : (sparse(ndof,ndof) real) stiffness matrix
+%          b           : (sparse(ndof,1) real) rhs vector
+%          u_g         : (sparse(ndof,1) real) evaluation of Dirichlet conditions
+%          M           : sparse(ndof,ndof) real mass matrix
+%
+
+fprintf('============================================================\n')
+fprintf('Assign Dirichlet boundary conditions ... \n');
+fprintf('============================================================\n')
+if strcmpi('non_sym',bc)
+    bp = femregion.boundary_points;
+    per_dx = femregion.per_dx;
+    per_sx = femregion.per_sx;
+    for k = 1:length(bp)
+        A(bp(k),:) = 0;
+        A(bp(k),bp(k)) = 1;
+        b(bp(k)) = 0;
+    end
+    for jj = 1:length(per_dx)
+        if(per_sx(jj)<per_dx(jj))
+        A(per_sx(jj),:) = 0;
+        A(per_sx(jj),per_sx(jj)) = 1;
+        A(per_sx(jj),per_dx(jj)) = -1;
+        b(per_sx(jj)) = 0;
+
+         end
+            
+    end
+    ndof = length(b);
+    u_g = sparse(ndof,1);
+    
+% elseif strcmpi('sym',bc)
+%     
+%     
+%     
+%     
+%     
+else
+
+    
+    
+    ndof = length(b);
+    u_g = sparse(ndof,1);
+    
+    boundary_points = femregion.boundary_points;
+    period_points = femregion.periodic_points;
+%     per_dx = femregion.per_dx;
+%     per_sx = femregion.per_sx;
+    x = femregion.dof(boundary_points,1);
+    y = femregion.dof(boundary_points,2);
+    u_g(boundary_points) = eval(Dati.exact_sol);
+    % u_g(per_sx) = 1;
+    % u_g(per_dx)= -1;
+    if max(abs(bc))~=0
+        u_g(period_points) = bc;
+    end
+    x_g = sparse(ndof,1);
+    A_0 = A;
+    M_0 = M;
+    
+    b_0 = b-A*u_g;
+    
+    if bc ==0
+        bp = boundary_points;
+    else
+        bp = [boundary_points;period_points];
+    end
+    
+    
+    for k = 1:length(bp)
+        A_0(bp(k),:) = 0;
+        A_0(:,bp(k)) = 0;
+        A_0(bp(k),bp(k)) = 1;
+        M_0(bp(k),:) = 0;
+        M_0(:,bp(k)) = 0;
+        M_0(bp(k),bp(k)) = 1;
+        b_0(bp(k)) = 0;
+    end
+    
+    b = b_0;
+    A = A_0;
+    M = M_0;
+end

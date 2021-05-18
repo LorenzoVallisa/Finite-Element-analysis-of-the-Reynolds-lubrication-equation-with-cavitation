@@ -1,0 +1,66 @@
+%% Trial 1
+% Cerchiamo di riprodurre BC periodiche riproponendo la soluzione inziale che troviamo con la  boundary condition
+% finale: informazione che sipropaga in avanti
+clc
+clear all
+close all
+tic
+[solutions,femregion,Matrices,Dati]=C_main2D('Test1',4,0)
+my_coord = find(femregion.coord(:,1)==0.128); %0.128 per fare il contrario
+% Cerco gli indici delle coordinate che corrispondono ad x = 0; (o ad x =
+% 0.128 nel caso voglia fare il contrario)
+diff = 1;
+ful = full(solutions.uh);
+input = ful(my_coord);
+nit = 0;
+% Mi trovo la soluzione in x = 0 (o ad x =
+% 0.128 nel caso voglia fare il contrario)
+while (diff > 0.00000002 && nit<100)
+    [solutions,femregion,Matrices,Dati]=C_main2D('Test1',4,input);
+    % La uso come BC in x = 1 e continuo ad iterare finchè difeerenza
+    % piccola
+    ful = full(solutions.uh);
+    diff = max(abs(input - ful(my_coord)));
+    input = ful(my_coord);
+    nit = nit+1;
+end
+toc
+%% Trial 2
+% Cerchiamo di riprodurre periodic BC lavorando su matrice SENZA salvarne
+% la simmetria (se voglio simmetria devo per forza risolvere sistema non
+% lineare perchè uno dei valori della rhs diventa una variabile)
+clc
+clear all
+close all
+tic
+[solutions,femregion,Matrices,Dati]=C_main2D('Test1',4,'non_sym')
+%  varargin
+toc
+%% Penalty Operator
+clc
+clear all
+close all
+[solutions,femregion,Matrices,Dati,A,M]=C_main2D('Test1',3,'non_sym',0,-1);
+p1 = solutions.uh;
+for i = 1:10
+
+xx = find(p1<0);
+[solutions,femregion,Matrices,Dati,A,M]=C_main2D('Test1',3,'non_sym',1,xx);
+p2 = solutions.uh;
+p3 = p1*0.05 + 0.95*p2;
+p1 = p3;
+figure;
+trisurf(femregion.connectivity(1:3,:)',femregion.coord(:,1),femregion.coord(:,2),full(p1));
+title('p_h(x,y)'); xlabel('x-axis'); ylabel('y-axis');
+end
+% 
+% [solutions,femregion,Matrices,Dati]=C_main2D('Test1',4,'non_sym',1,xx)
+% p4 = solutions.uh;
+% p5 = p3*0.05+0.95*p4;
+
+
+
+
+
+
+    
