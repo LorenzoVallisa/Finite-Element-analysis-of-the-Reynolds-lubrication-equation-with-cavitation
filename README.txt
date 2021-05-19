@@ -1,3 +1,11 @@
+------------------------------------------------------------------------------------------------------------------------------------------------------
+--------------------------- REPRODUCING CAVITATION AREA USING PENALTY OPERATOR AND VARIATIONAL FORMULATION -------------------------------------------
+------------------------------------------------------------------------------------------------------------------------------------------------------
+
+FEM code written to reproduce cavitation area that generates in industrial application connected to bearings. Indeed in contact areas between bearings and the inner
+pipe lubricant oil is subject to such high pressure that it undergoes cavitation. This small software is able to predict how big is the area in which cavitation occurs.
+
+
 LABO.m -> main file
 
 ---------------------------------------------------------------------------PART 1-----------------------------------------------------------------------
