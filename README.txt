@@ -32,6 +32,8 @@ Convergence test with epsilon = h^2
 Material EXTRA on Lagrangian Augmented (useful for quadratic BC or for stabilizing problems whose egenvectors were very close to each other)
 
 
---->Folder Numerical Error
+--->Folder Numerical Error: Convergence test results
 
-Convergence test results
+--------> SEE REPORT FOR MORE DETAILS
+
+
