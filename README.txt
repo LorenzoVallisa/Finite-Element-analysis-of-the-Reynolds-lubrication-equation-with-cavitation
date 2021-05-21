@@ -2,8 +2,7 @@
 --------------------------- REPRODUCING CAVITATION AREA USING PENALTY OPERATOR AND VARIATIONAL FORMULATION -------------------------------------------
 ------------------------------------------------------------------------------------------------------------------------------------------------------
 
-FEM code written to reproduce cavitation area that generates in industrial application connected to bearings. Indeed in contact areas between bearings and the inner
-pipe lubricant oil is subject to such high pressure that it undergoes cavitation. This small software is able to predict how big is the area in which cavitation occurs.
+FEM code able to reproduce cavitation area generated in industrial applications in lubricatn oil between bearings and a rotor shaft: in contact areas between bearings and the shaft, lubricant oil is subject to such high pressure that it undergoes cavitation. Using a penalty operator algorithm applied to the weak formulation of the simplified Navier-Stokes set of equations, the software is able to predict the size of the contact area in which cavitation happens. Further Augmented Lagrangian Algorithm has been implemented to account for instabilities arising by the use of non-linear boundary conditions.
 
 
 LABO.m -> main file
