@@ -1,11 +1,21 @@
-------------------------------------------------------------------------------------------------------------------------------------------------------
---------------------------- REPRODUCING CAVITATION AREA USING PENALTY OPERATOR AND VARIATIONAL FORMULATION -------------------------------------------
-------------------------------------------------------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------
+------- REPRODUCING CAVITATION AREA USING PENALTY OPERATOR AND VARIATIONAL FORMULATION --------
+-----------------------------------------------------------------------------------------------
 
 FEM code able to reproduce cavitation area generated in industrial applications in lubricatn oil between bearings and a rotor shaft: in contact areas between bearings and the shaft, lubricant oil is subject to such high pressure that it undergoes cavitation. Using a penalty operator algorithm applied to the weak formulation of the simplified Navier-Stokes set of equations, the software is able to predict the size of the contact area in which cavitation happens. Further Augmented Lagrangian Algorithm has been implemented to account for instabilities arising by the use of non-linear boundary conditions.
 
+###############################################
+############# PREREQUISITES ###################
+###############################################
 
-LABO.m -> main file
+MATLAB2018
+
+
+###############################################
+############# HOW TO TEST IT ##################
+###############################################
+
+Open and launch LABO.m  (main file)
 
 ---------------------------------------------------------------------------PART 1-----------------------------------------------------------------------
 Launching it, reproduce results of numerical test for selected variable:
