@@ -1,6 +1,5 @@
------------------------------------------------------------------------------------------------
-------- REPRODUCING CAVITATION AREA USING PENALTY OPERATOR AND VARIATIONAL FORMULATION --------
------------------------------------------------------------------------------------------------
+# REPRODUCING CAVITATION AREA USING PENALTY OPERATOR AND VARIATIONAL FORMULATION
+
 
 FEM code able to reproduce cavitation area generated in industrial applications in lubricatn oil between bearings and a rotor shaft: in contact areas between bearings
 and the shaft, lubricant oil is subject to such high pressure that it undergoes cavitation. 
