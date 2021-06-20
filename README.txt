@@ -12,7 +12,6 @@ area in which cavitation happens. Further Augmented Lagrangian Algorithm has bee
 
 MATLAB2018
 
-**SSorte**
 ###############################################
 ############# HOW TO TEST IT ##################
 ###############################################
