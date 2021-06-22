@@ -11,7 +11,7 @@ area in which cavitation happens. Further Augmented Lagrangian Algorithm has bee
 Git pull the repository and be sure you have MATLAB2018 installed
 
 **Execution**\
-\
+
 
 (PART 1)
 Open and launch LABO.m  (main file)
